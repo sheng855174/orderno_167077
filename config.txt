@@ -1,0 +1,9 @@
+{
+	"fb登入畫面": "https://zh-tw.facebook.com/",
+	"粉絲團專頁": "https://www.facebook.com/groups/653088688164971/",
+	"帳號": "0903669275",
+	"密碼": "dead0326",
+	"下滑次數": 3,
+	"下載目錄路徑" :"C:\\Users\\Sheng\\Downloads",
+	"下載等待時間" : 10
+}

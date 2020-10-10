@@ -55,10 +55,12 @@ def parse_htmltext(下載目錄路徑,群組id):
 	sheet = excel_file.add_sheet("爬蟲結果")
 	row=0
 	col=0
+	
 	for article in articles:
 		try:
 			col=0
 			check = True
+			link = False
 			貼文時間 = re.findall('<div.[^>]*aria-label="(.[^"]*月.[^"]*)".[^>]*role="button" tabindex="0".[^>]*>', str(article))
 			貼文連結 = re.findall('<a.[^>]*href="(.[^"]*permalink.[^"]*)".[^>]*role="link" tabindex="0".[^>]*>', str(article))
 			貼文內容 = re.findall('#代購.[^#]*#[^#]*<a.[^#]*role="link" tabindex="0">#(.[^<]*)<\/a>', str(article))
@@ -70,8 +72,10 @@ def parse_htmltext(下載目錄路徑,群組id):
 			if len(貼文時間) == 0 :
 				貼文時間 = re.findall('<div.[^>]*aria-label="(.[^"]*分鐘)".[^>]*role="button" tabindex="0".[^>]*>', str(article))
 			if len(貼文連結) == 0 :
-				貼文連結 = re.findall('<a aria-label="圖像裡可能有食物".[^>]*href=".[^"]*pcb\.(.[0-9a-zA-Z]*).[^"]*".[^>]*>', str(article))
-				貼文連結 = "https://www.facebook.com/groups/"+群組id+"/permalink/"+貼文連結+"/"
+				貼文連結 = re.findall('<a aria-label="圖像.[^"]*".[^>]*href=".[^"]*pcb\.(.[0-9a-zA-Z]*).[^"]*".[^>]*>', str(article))
+				貼文連結 = "https://www.facebook.com/groups/"+群組id+"/permalink/"+str(貼文連結[0])+"/"
+				link = True
+			
 			if len(貼文時間) == 0 :
 				print("沒找到貼文時間")
 				check = False
@@ -82,8 +86,9 @@ def parse_htmltext(下載目錄路徑,群組id):
 				print("沒找到貼文連結")
 				check = False
 			else :
-				貼文連結 = str(貼文連結[0])
-				簡化連結 = 貼文連結[0:貼文連結.find("?")]
+				if link == False:
+					貼文連結 = str(貼文連結[0])
+					簡化連結 = 貼文連結[0:貼文連結.find("?")]
 				print("貼文連結 : " + 貼文連結)
 			if len(貼文內容) == 0 :
 				print("沒找到貼文內容")
@@ -92,7 +97,8 @@ def parse_htmltext(下載目錄路徑,群組id):
 				貼文內容 = str(貼文內容[0])
 				print("貼文內容 : " + 貼文內容)
 			print("=============================")
-			if check == True :
+			
+			if check == True:
 				sheet.write(row, col, 貼文時間)
 				col = col + 1
 				sheet.write(row, col, xlwt.Formula('HYPERLINK("' + 簡化連結 + '";"' + 貼文內容 + '")'))
@@ -103,9 +109,10 @@ def parse_htmltext(下載目錄路徑,群組id):
 		except Exception as e:
 			#print(e)
 			continue
+	
 	f.close()
 	copyfile(下載目錄路徑+filename, "." + filename)
-	os.remove(下載目錄路徑+filename)
+	#os.remove(下載目錄路徑+filename)
 	excel_file.save('fb_result.xls')
 	
 	
@@ -126,7 +133,7 @@ if __name__ == '__main__':
 	下載等待時間 = config["下載等待時間"]
 	下載目錄路徑 = config["下載目錄路徑"]
 
-	get_htmltext(username, password, fb_page,下滑次數,下載等待時間)
+	#get_htmltext(username, password, fb_page,下滑次數,下載等待時間)
 	parse_htmltext(下載目錄路徑,群組id)
 	print("執行完畢")
 	os.system("pause")

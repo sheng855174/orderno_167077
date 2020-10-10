@@ -1,9 +1,12 @@
 {
 	"fb登入畫面": "https://zh-tw.facebook.com/",
-	"粉絲團專頁": "https://www.facebook.com/groups/653088688164971/",
+	"粉絲團專頁": "https://www.facebook.com/%E5%B0%8F%E7%94%B0%E8%9E%BA%E6%84%9B%E5%9C%98%E8%B3%BC-612692198897670/",
+	"粉絲專頁id": "612692198897670",
+	"群組專頁": "https://www.facebook.com/groups/653088688164971",
+	"群組id": "653088688164971",
 	"帳號": "0903669275",
 	"密碼": "dead0326",
-	"下滑次數": 3,
+	"下滑次數": 10,
 	"下載目錄路徑" :"C:\\Users\\Sheng\\Downloads",
 	"下載等待時間" : 10
 }

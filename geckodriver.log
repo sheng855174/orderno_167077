@@ -9251,3 +9251,4 @@ Can't find symbol 'eglSwapBuffersWithDamageEXT'.
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1602394063215	geckodriver	INFO	Listening on 127.0.0.1:5938

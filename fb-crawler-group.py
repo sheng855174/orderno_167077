@@ -75,6 +75,8 @@ def parse_htmltext(下載目錄路徑,群組id):
 				貼文連結 = re.findall('<a aria-label="圖像.[^"]*".[^>]*href=".[^"]*pcb\.(.[0-9a-zA-Z]*).[^"]*".[^>]*>', str(article))
 				貼文連結 = "https://www.facebook.com/groups/"+群組id+"/permalink/"+str(貼文連結[0])+"/"
 				link = True
+			if len(貼文內容) == 0 :
+				貼文內容 = re.findall('#代購.[^#]*#[^#]*<a.[^＃]*role="link" tabindex="0">＃(.[^<]*)<\/a>', str(article))
 			
 			if len(貼文時間) == 0 :
 				print("沒找到貼文時間")
@@ -112,7 +114,7 @@ def parse_htmltext(下載目錄路徑,群組id):
 	
 	f.close()
 	copyfile(下載目錄路徑+filename, "." + filename)
-	#os.remove(下載目錄路徑+filename)
+	os.remove(下載目錄路徑+filename)
 	excel_file.save('fb_result.xls')
 	
 	
@@ -133,7 +135,7 @@ if __name__ == '__main__':
 	下載等待時間 = config["下載等待時間"]
 	下載目錄路徑 = config["下載目錄路徑"]
 
-	#get_htmltext(username, password, fb_page,下滑次數,下載等待時間)
+	get_htmltext(username, password, fb_page,下滑次數,下載等待時間)
 	parse_htmltext(下載目錄路徑,群組id)
 	print("執行完畢")
 	os.system("pause")

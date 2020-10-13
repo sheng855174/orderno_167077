@@ -68,6 +68,9 @@ def parse_htmltext(下載目錄路徑,粉絲專頁id):
 				貼文時間 = re.findall('<div.[^>]*aria-label="(.[^"]*小時)".[^>]*role="button" tabindex="0".[^>]*>', str(article))
 			if len(貼文時間) == 0 :
 				貼文時間 = re.findall('<div.[^>]*aria-label="(.[^"]*分鐘)".[^>]*role="button" tabindex="0".[^>]*>', str(article))
+			if len(貼文內容) == 0 :
+				貼文內容 = re.findall('#代購.[^#]*#[^#]*<a.[^＃]*role="link" tabindex="0">＃(.[^<]*)<\/a>', str(article))
+			
 			if len(貼文時間) == 0 :
 				print("沒找到貼文時間")
 				check = False
@@ -88,6 +91,7 @@ def parse_htmltext(下載目錄路徑,粉絲專頁id):
 				貼文內容 = str(貼文內容[0])
 				print("貼文內容 : " + 貼文內容)
 			print("=============================")
+			
 			if check == True :
 				sheet.write(row, col, 貼文時間)
 				col = col + 1
